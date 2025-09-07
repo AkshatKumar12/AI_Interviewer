@@ -1,59 +1,9 @@
-# import streamlit as st
-# import requests
-
-# st.set_page_config(page_title="Interview Simulator", layout="wide")
-
-# st.title("AI Interview Simulator")
-
-
-# if "messages" not in st.session_state:
-#     st.session_state.messages = []
-
-# backend_url = "http://127.0.0.1:8000/chat"
-
-# for msg in st.session_state.messages:
-#     role = msg["role"]
-#     content = msg["content"]
-
-#     if role == "user":
-#         with st.chat_message("user"):
-#             st.markdown(f"**You:** <span style='font-size:14px'>{content}</span>", unsafe_allow_html=True)
-#     elif role == "assistant":
-#         with st.chat_message("assistant"):
-#             st.markdown(f"**Interviewer:** <span style='font-size:14px'>{content}</span>", unsafe_allow_html=True)
-#     elif role == "manager":
-#         with st.chat_message("assistant"):
-#             st.markdown(f"**Manager:** <span style='font-size:14px'>{content}</span>", unsafe_allow_html=True)
-
-
-# if prompt := st.chat_input("Your response"):
-#     # Add user message
-#     st.session_state.messages.append({"role": "user", "content": prompt})
-#     with st.chat_message("user"):
-#         st.markdown(f"**You:** <span style='font-size:14px'>{prompt}</span>", unsafe_allow_html=True)
-
-#     # Call backend
-#     with st.spinner("Interview in progress..."):
-#         response = requests.post(backend_url, json={"message": prompt})
-#         reply = response.json()["response"]
-
-#     # Add interviewer message
-#     st.session_state.messages.append({"role": "assistant", "content": reply})
-#     with st.chat_message("assistant"):
-#         st.markdown(f"**Interviewer:** <span style='font-size:14px'>{reply}</span>", unsafe_allow_html=True)
-
-
-
-
-
-
 
 import streamlit as st
 import requests
 
 st.set_page_config(page_title="Interview Simulator", layout="wide")
 
-# ===== Custom CSS for LeetCode style =====
 st.markdown("""
     <style>
     /* Background */
@@ -110,16 +60,15 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("⚡ AI Interview Simulator")
+st.title("AI Interview Simulator")
 
 
-# Session state
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
 backend_url = "http://127.0.0.1:8000/chat"
 
-# Display old messages
+
 for msg in st.session_state.messages:
     role = msg["role"]
     content = msg["content"]
@@ -134,19 +83,19 @@ for msg in st.session_state.messages:
         with st.chat_message("assistant"):
             st.markdown(f"**Manager:** <span>{content}</span>", unsafe_allow_html=True)
 
-# Input box
+
 if prompt := st.chat_input("Your response"):
     # Add user message
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(f"**You:** <span>{prompt}</span>", unsafe_allow_html=True)
 
-    # Backend call
+
     with st.spinner("Interview in progress..."):
         response = requests.post(backend_url, json={"message": prompt})
         reply = response.json()["response"]
 
-    # Add interviewer message
+
     st.session_state.messages.append({"role": "assistant", "content": reply})
     with st.chat_message("assistant"):
         st.markdown(f"**Interviewer:** <span>{reply}</span>", unsafe_allow_html=True)

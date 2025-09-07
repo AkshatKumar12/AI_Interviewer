@@ -1,86 +1,3 @@
-# from fastapi import FastAPI
-# from pydantic import BaseModel
-# from autogen_ext.models.openai import OpenAIChatCompletionClient
-# from autogen_agentchat.agents import AssistantAgent, UserProxyAgent
-# from autogen_agentchat.teams import RoundRobinGroupChat
-# from autogen_agentchat.conditions import TextMentionTermination
-# import asyncio
-
-# app = FastAPI()
-
-# model_client = OpenAIChatCompletionClient(
-#     model="gemini-2.0-flash",
-#     api_key="AIzaSyCEZiG9h3jYYLVZ671LMPQlxfVD3CTAKFo"  
-# )
-
-# interviewer = AssistantAgent(
-#     name="Interviewer",
-#     model_client=model_client,
-#     system_message="""You are 'Bob' an interviewer at a top tech company (FAANG-like).
-#         You are interviewing a 3rd-year, 5th-semester BTech CSE student for a Software Engineering Internship role.
-#         Structure the interview like a real one: begin with a short introduction,
-#         then move into coding/data structures and algorithms questions (LeetCode-style),
-#         followed by one system design or problem-solving question appropriate for an intern,
-#         and finally a few behavioral/cultural fit questions.
-#         Ask one question at a time.
-#         Expect the candidate to explain their thought process clearly before coding.
-#         Provide hints only if the candidate asks.
-#         Evaluate the candidate on clarity, problem-solving approach, coding ability, and communication.
-#         Maintain a professional but slightly challenging tone.
-#         At the end, summarize the candidate’s performance with feedback and an assessment of whether they would move to the next round.Keep the interview short with 1 coding question 2-3 behavioural questions.""",
-# )
-
-# manager = AssistantAgent(
-#     name="Manager",
-#     model_client=model_client,
-#     system_message="""You are a 'Alice' Hiring Manager at a top tech company.
-#     You are overseeing the internship interview of a 3rd-year, 5th-semester BTech CSE student.
-#     Your role is to manage the flow of the interview, maintain professionalism between the interviewer and candidate,
-#     and step in when necessary to clarify, redirect, or adjust the pace. 
-#     bserve the candidate’s performance and potential: if the candidate performs strongly,
-#     instruct the interviewer to increase the difficulty of questions and note their suitability for higher pay or a stronger role;
-#     if the candidate struggles, guide the interviewer to scale down the difficulty and evaluate based on fundamentals.
-#     At the end, provide a hiring recommendation, including performance summary, growth potential, and compensation band suggestion.
-#     Maintain a professional, balanced, and insightful tone throughout.Keep the interview short with 1 coding question 2-3 behavioural questions. IF you think the process should be stopped, send 'TERMINATE'."""
-# )
-
-
-# candidate = UserProxyAgent(
-#     name="Interviewee",
-#     description="The candidate",
-#     input_func=None  
-# )
-
-# termination_condition = TextMentionTermination("TERMINATE")
-
-# team = RoundRobinGroupChat(
-#     participants=[interviewer, manager, candidate],
-#     termination_condition=termination_condition,
-#     max_turns=30
-# )
-
-
-# class ChatRequest(BaseModel):
-#     message: str
-
-# class ChatResponse(BaseModel):
-#     response: str
-
-# @app.post("/chat", response_model=ChatResponse)
-# async def chat(req: ChatRequest):
-#     # Inject user message into candidate agent
-#     candidate.append_user_message(req.message)
-
-#     result = ""
-#     async for event in team.run_stream(task="Conducting an interview of 'Akshat'."):
-#         if event.agent and event.message:
-#             result += f"{event.agent.name}: {event.message}\n"
-
-#     return {"response": result}
-
-
-
-
 import os
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -97,7 +14,7 @@ app = FastAPI()
 
 model_client = OpenAIChatCompletionClient(
     model="gemini-2.0-flash",
-    api_key = "AIzaSyCEZiG9h3jYYLVZ671LMPQlxfVD3CTAKFo",  
+    api_key = "",  
     model_info=ModelInfo(
         vision=True,
         function_calling=True,
