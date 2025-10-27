@@ -14,7 +14,6 @@ app = FastAPI()
 
 model_client = OpenAIChatCompletionClient(
     model="gemini-2.0-flash",
-    api_key = "",  
     model_info=ModelInfo(
         vision=True,
         function_calling=True,
